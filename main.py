@@ -1,4 +1,7 @@
 import json
+import os
+
+
 print("Pico Linux 0.1")
 
 with open("./etc/passwd.json", "r") as f:
@@ -16,7 +19,13 @@ dossier_utilisateur = f"./home/{utilisateur}"
 dossier_actuel = dossier_utilisateur
 
 with open("./directory.json", "w") as f:
-    json.dump(dossier_actuel)
+    json.dump(dossier_actuel, f)
 
 while True:
-    commande = input(f"{utilisateur}-Pico-Linux$")
+    commande = input(f"{utilisateur}-Pico-Linux$ ")
+
+    if os.path.exists(f"./bin/{commande}.py"):
+        exec(open(f"./bin/{commande}.py").read())
+    
+    else:
+        print("commande inconnu")
